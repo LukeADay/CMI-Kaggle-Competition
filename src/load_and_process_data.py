@@ -161,4 +161,3 @@ features = [f for f in train.columns if f not in exclude]
 
 # Grab categorical columns
 cat_c = train.select_dtypes(include = 'object').columns
-l
