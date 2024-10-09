@@ -23,11 +23,16 @@ import pandas as pd
 pd.set_option('display.max_columns', None)
 
 # %%
-
+# Define class for loading and processing data
 class DataHandler:
     """
     Class that handles data loading and preparation
     
+    Inputs:
+        None
+
+    Outputs:
+        Upon initialisation train, test and sample can be extracted as object attributes
     """
 
     def __init__(self):
@@ -55,12 +60,22 @@ class DataHandler:
         self.sample = sample
 
     def load_tabular_data(self):
+        """
+        Load the tabular data and return train, test and sample (tabular data only)
+        """
         train = pd.read_csv(r"../data/child-mind-institute-problematic-internet-use/train.csv")
         test = pd.read_csv(r"../data/child-mind-institute-problematic-internet-use/test.csv")
         sample = pd.read_csv(r"../data/child-mind-institute-problematic-internet-use/sample_submission.csv")
         return train, test, sample
     
     def time_features(self, df):
+        """
+        Perform feature engineering on time-series data
+
+        Returns:
+            Aggregated metrics from the time-series that can be used for modelling
+        """
+        
         # Convert time_of_day to hours
         df["hours"] = df["time_of_day"] // (3_600 * 1_000_000_000)
         # Basic features 
@@ -108,12 +123,18 @@ class DataHandler:
     # Code for parallelized computation of time series data from: Sheikh Muhammad Abdullah 
     # https://www.kaggle.com/code/abdmental01/cmi-best-single-model
     def process_file(self, filename, dirname):
+        """
+        Load individual time-series parquet file in the folder and perform data processing returning aggregate metrics
+        """
         # Process file and extract time features
         df = pd.read_parquet(os.path.join(dirname, filename, 'part-0.parquet'))
         df.drop('step', axis=1, inplace=True)
         return self.time_features(df), filename.split('=')[1]
 
     def load_time_series(self, dirname):
+        """
+        In parallel iteratively load time-series parquet files and return aggregate metrics per file
+        """
         # List of files or subdirectories in the given directory
         ids = [fname for fname in os.listdir(dirname) if not fname.startswith('.')]
         
@@ -140,3 +161,4 @@ features = [f for f in train.columns if f not in exclude]
 
 # Grab categorical columns
 cat_c = train.select_dtypes(include = 'object').columns
+l
