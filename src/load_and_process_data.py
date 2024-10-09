@@ -22,10 +22,6 @@ warnings.filterwarnings('ignore')
 import pandas as pd
 pd.set_option('display.max_columns', None)
 
-train = pd.read_csv(r"../data/child-mind-institute-problematic-internet-use/train.csv")
-test = pd.read_csv(r"../data/child-mind-institute-problematic-internet-use/test.csv")
-sample = pd.read_csv(r"../data/child-mind-institute-problematic-internet-use/sample_submission.csv")
-
 # %%
 
 class DataHandler:
