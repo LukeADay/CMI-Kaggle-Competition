@@ -10,6 +10,9 @@
 # Ignore Jupyter notebook checkpoints
 .ipynb_checkpoints/
 
+# Zip files
+.zip
+
 # Ignore any backup or temporary files that might be created
 *.bak
 *.tmp
