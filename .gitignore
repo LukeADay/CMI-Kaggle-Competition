@@ -1,0 +1,15 @@
+# Ignore CSV files
+*.csv
+
+# Ignore Parquet files
+*.parquet
+
+# Ignore MacOS .DS_Store files
+.DS_Store
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore any backup or temporary files that might be created
+*.bak
+*.tmp
